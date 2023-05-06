@@ -7,7 +7,7 @@ const port = 80;
 const db: Database = new DatabaseConstructor('db.sqlite');
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Express + TypeScript Server');
+    res.send('Express + TypeScript Server + Docker');
 });
 
 app.get('/products', (req: Request, res: Response) => {

@@ -9,7 +9,7 @@ const app = (0, express_1.default)();
 const port = 80;
 const db = new better_sqlite3_1.default('db.sqlite');
 app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server');
+    res.send('Express + TypeScript Server + Docker');
 });
 app.get('/products', (req, res) => {
     let products = db.prepare('SELECT * FROM products').all();
