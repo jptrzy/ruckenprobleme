@@ -1,13 +1,21 @@
-FROM node:lts-slim
+FROM node:lts-slim as development
 
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
-RUN npm install -g concurrently
 
 COPY . .
 
-EXPOSE 80
+CMD ["npm", "run", "build"]
 
-CMD ["npm", "run", "dev"]
+FROM node:lts-slim as production
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY --from=development /app/.dist .dist
+
+CMD ["npm", "run", "start"]

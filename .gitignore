@@ -1,6 +1,7 @@
 # Ruckenprobleme
-.db
-*.js
+.db/
+.dist/
+**/*.js
 
 # Logs
 logs

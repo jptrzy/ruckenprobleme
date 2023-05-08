@@ -2,25 +2,26 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      target: development
     container_name: ruckenprobleme-api
-    # expose:
-    #   - 80
-    #   - 27017
+    expose:
+      - 80
+      - 27017
     ports:
       - 80:80
     environment:
       - PORT=80
       - DB_CONN_STRING=mongodb://root:Start123@mongodb:27017
     volumes:
-      - ./src:/app/src
+      - .:/app
+      - /app/node_modules
     command: npm run dev
     depends_on:
       - mongodb
   mongodb:
     image: mongo:latest
-    # expose:
-    #   - 27017
+    expose:
+      - 27017
     ports:
       - 27017:27017
     environment:
