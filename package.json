@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node src/main.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q src/main.js\""
+    "lint": "eslint . --ext .ts",
+    "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
+    "dev": "concurrently \"npm run prettier-watch\" \"npx tsc --watch\" \"nodemon -q src/main.js\""
   },
   "repository": {
     "type": "git",
@@ -29,8 +31,14 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.4",
     "@types/express": "^4.17.17",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
     "concurrently": "^8.0.1",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "mongodb": "^5.4.0",
     "nodemon": "^2.0.22",
-    "mongodb": "^5.4.0"
+    "onchange": "^7.1.0",
+    "prettier": "^2.8.8"
   }
 }
