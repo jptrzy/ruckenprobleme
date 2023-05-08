@@ -1,3 +1,7 @@
+# Ruckenprobleme
+.db
+*.js
+
 # Logs
 logs
 *.log
