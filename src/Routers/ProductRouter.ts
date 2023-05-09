@@ -1,33 +1,12 @@
-import { Router } from "express";
-import * as ProductsController from "../Controllers/ProductsController"
-import { ObjectId } from "mongodb";
-import { Logger } from "tslog";
-
-const logger = new Logger();
+import { Router, json } from "express";
+import {ProductsController} from "../Controllers/ProductsController"
 
 export const ProductRouter: Router = Router();
 
-ProductRouter.get("/", async (req, res) => {
-    const products = await ProductsController.find();
+ProductRouter.use(json()) // Allow to look into the body of request
 
-    // TODO Simplify loggers
-    logger.info(`User asked for products`);
-    
-    res.set("Content-Type", "application/json");
-    res.send(products ? { products: products } : { error: "Not found" });
-});
-  
-ProductRouter.get("/:_id", async (req, res) => {
-    let product;
-  
-    logger.info(`User asked for product with _ObjectId(${req.params._id})`);
+ProductRouter.get("/",  ProductsController.list);
 
-    try {
-        product = await ProductsController.find({ _id: new ObjectId(req.params._id) });
-        product = product[0];
+ProductRouter.post("/insert",  ProductsController.insert);
 
-        res.send(product);
-    } catch {
-        res.json({ error: "Not found" });
-    }  
-});
+ProductRouter.get("/:_id",  ProductsController.findById);
