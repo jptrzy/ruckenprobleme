@@ -6,9 +6,9 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node src/main.js",
-    "lint": "eslint . --ext .ts",
-    "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon --watch src -q .dist/main.js\""
+    "lint": "npx eslint . --ext .ts",
+    "prettier-watch": "npx onchange 'src/**/*.ts' -- prettier --write {{changed}}",
+    "dev": "concurrently \"node run prettier-watch\" \"npx tsc --watch\" \"nodemon --watch src -q .dist/main.js\""
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "express": "^4.18.2",
     "node-gyp": "^9.3.1",
     "sqlite": "^4.2.0",
+    "tslog": "^4.8.2",
     "typescript": "^5.0.4"
   },
   "devDependencies": {
