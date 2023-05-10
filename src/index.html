@@ -32,10 +32,19 @@
     <div class="app">
         <h1>Rückenprobleme (🪙Shop API) Docs</h1>
         <br>
-        <a href="${href}/products">${href}/products</a> → GET → List all products <br>
-        <a href="${href}/products?q=a">${href}/products?q=[name]</a> → GET → Search product by name <br>
-        <a href="${href}/products/6458cd124505657558adfad2">${href}/products/[_id]</a> → GET → Show one product with matching _id <br>
-        <a href="${href}/products/insert">${href}/products/insert</a> → POST → Insert new product to collection <br>
+        <p>
+            <a href="${href}/products">${href}/products</a> → GET → List all products
+        </p><p>
+            <a href="${href}/products?q=a">${href}/products?q=[name]</a> → GET → Search product by name
+        </p><p>
+            <a href="${href}/products/6458cd124505657558adfad2">${href}/products/[_id]</a> → GET → Show one product with matching _id
+        </p><p>
+            <a href="${href}/products/add">${href}/products/add</a> → POST → Insert new product (from given data) to collection
+        </p><p>
+            <a href="${href}/products/6458cd124505657558adfad2">${href}/products/[_id]</a> → PUT/PATCH → Update a product (with given data; don't work on _id)
+        </p><p>
+            <a href="${href}/products/6458cd124505657558adfad2">${href}/products/[_id]</a> → DELETE → Delete a product from collection
+        </p>
         <br>
         <h2>Error Message Example</h2>
         <code>

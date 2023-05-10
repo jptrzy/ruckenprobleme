@@ -15,7 +15,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev
+    # command: npm run dev
+    command: tail -f /dev/null
     depends_on:
       - mongodb
   mongodb:

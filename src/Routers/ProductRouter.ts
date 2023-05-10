@@ -7,6 +7,11 @@ ProductRouter.use(json()) // Allow to look into the body of request
 
 ProductRouter.get("/",  ProductsController.list);
 
-ProductRouter.post("/insert",  ProductsController.insert);
+ProductRouter.post("/add",  ProductsController.insert);
+
+ProductRouter.delete("/:_id",  ProductsController.delete);
+
+ProductRouter.put("/:_id",  ProductsController.update);
+ProductRouter.patch("/:_id",  ProductsController.update);
 
 ProductRouter.get("/:_id",  ProductsController.findById);

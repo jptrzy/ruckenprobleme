@@ -1,13 +1,4 @@
 import { ObjectId } from "mongodb";
-import * as t from "io-ts";
-
-export const TProduct = t.type({
-    name: t.string,
-    description: t.string,
-    price: t.number,
-    rating: t.number,
-    stock: t.number,
-})
 
 export class Product {
     _id?: ObjectId;

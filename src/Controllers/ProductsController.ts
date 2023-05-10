@@ -1,9 +1,9 @@
-import { MongoClient, Db, ObjectId, Filter, Document } from "mongodb";
-import { Product, TProduct } from "../Data/Product";
+import { MongoClient, Db, ObjectId, Filter, Document, DeleteResult } from "mongodb";
+import { Product, IProduct } from "../Data/Product";
 import { withHandleError, Controller } from "../Controllers/ControllerErrorHandler";
-import { PreProcessedFileInfo } from "typescript";
 import { NextFunction, Request, Response} from "express";
-import { isLeft } from "fp-ts/lib/Either";
+import {isOfClass} from "../Utils/ObjectParser";
+
 
 let client: MongoClient = new MongoClient(process.env.DB_CONN_STRING!);
 let db: Db;
@@ -35,22 +35,27 @@ export let ProductsController: Controller = withHandleError({
   },
 
   insert: async (req: Request, res: Response, next: NextFunction) => {
-    let product: any;
+    const product = req.body;
+    product._id = undefined;
 
-    const decode = TProduct.decode(req.body);
-    
-    if (isLeft(decode)) throw new Error(`Creation of new product was stopped - incorrect data`);
+    console.log (`Body: ${JSON.stringify(product)}`)
 
-    let _product: Product = decode.right
-
-    // Remove unused variables
-    product = new Product();
-    Object.keys(product).forEach((key: string, value: any) => {
-        product[key as keyof Product] = _product[key as keyof Product];
-    });;
+    if (!isOfClass(Product, product)) throw new Error(`User send incorrect data for product creation`);
 
     (await getDB()).collection<Product>("products").insertOne(product)
 
     res.status(201).send({ message: "Product successfully inserted" });
-  }
+  },
+  
+  update: async (req: Request, res: Response, next: NextFunction) => {
+
+  },
+
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    const result: DeleteResult = await (await getDB()).collection<Product>("products").deleteOne({ _id: new ObjectId(req.params._id) });
+
+    if (result.deletedCount == 0) throw new Error(`Product by Id(req.params._id) was not found`);
+
+    res.status(200).send({ message: "Product successfully deleted" });
+  },
 });
