@@ -2,7 +2,7 @@ import { MongoClient, Db, ObjectId, Filter, Document, DeleteResult } from "mongo
 import { Product, IProduct } from "../Data/Product";
 import { withHandleError, Controller } from "../Controllers/ControllerErrorHandler";
 import { NextFunction, Request, Response} from "express";
-import {isOfClass} from "../Utils/ObjectParser";
+import {isOfClass, isPartiallyOfClass} from "../Utils/ObjectParser";
 
 
 let client: MongoClient = new MongoClient(process.env.DB_CONN_STRING!);
@@ -38,8 +38,6 @@ export let ProductsController: Controller = withHandleError({
     const product = req.body;
     product._id = undefined;
 
-    console.log (`Body: ${JSON.stringify(product)}`)
-
     if (!isOfClass(Product, product)) throw new Error(`User send incorrect data for product creation`);
 
     (await getDB()).collection<Product>("products").insertOne(product)
@@ -47,8 +45,16 @@ export let ProductsController: Controller = withHandleError({
     res.status(201).send({ message: "Product successfully inserted" });
   },
   
-  update: async (req: Request, res: Response, next: NextFunction) => {
+  update: async (req: Request, res: Response, next: NextFunction) => {    
+    const product = req.body;
 
+    if (!isPartiallyOfClass(Product, product)) throw new Error(`User send incorrect data for product update`);
+
+    product._id = new ObjectId(req.params._id);
+
+    (await getDB()).collection<Product>("products").updateOne({ _id: new ObjectId(req.params._id) }, { "$set": product });
+
+    res.status(201).send({ message: "Product successfully updated" });
   },
 
   delete: async (req: Request, res: Response, next: NextFunction) => {

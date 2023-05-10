@@ -1,10 +1,11 @@
 import express, { Express, Request, Response } from "express";
 import * as fs from "fs";
-import { ProductRouter } from "./Routers/ProductRouter";
+import { productRouter } from "./Routers/ProductRouter";
 import { Logger } from "tslog";
 
 const logger = new Logger();
 const app: Express = express();
+// const port = process.env.PORT;
 const port = process.env.PORT;
 
 app.get("/", (req: Request, res: Response) => {
@@ -23,7 +24,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send(Buffer.from(html));
 });
 
-app.use("/products", ProductRouter);
+app.use("/products", productRouter);
 
 app.listen(port, async () => {
   logger.info(`Server is running at http://localhost:${port}`);

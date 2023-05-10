@@ -9,7 +9,7 @@
     "start": "node src/main.js",
     "lint": "npx eslint . --ext .ts",
     "prettier-watch": "npx onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "dev": "concurrently \"node run prettier-watch\" \"npx tsc --watch\" \"nodemon --watch src -q .dist/main.js\""
+    "dev": "concurrently \"node run prettier-watch\" \"npx tsc --watch\" \"nodemon --watch src -q .dist/src/main.js\""
   },
   "repository": {
     "type": "git",
