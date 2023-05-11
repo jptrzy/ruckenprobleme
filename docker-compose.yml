@@ -6,12 +6,11 @@ services:
     container_name: ruckenprobleme-api
     expose:
       - 8080
-      - 27017
     ports:
       - 8080:8080
     environment:
       - PORT=8080
-      - DB_CONN_STRING=mongodb://mongodb:27017
+      - DB_CONN_STRING=mongodb://root:Randowm1123@mongodb:27017
     volumes:
       - .:/app
       - /app/node_modules
@@ -21,11 +20,17 @@ services:
       - mongodb
   mongodb:
     image: mongo:latest
+    restart: always
     expose:
       - 27017
     ports:
       - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=Randowm1123
+      - MONGO_INITDB_DATABASE=shop
     volumes:
-      - ./.db/mongodb:/data/db
-      - ./.db/mongodb_config:/data/configdb
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    #   - ./.db/mongodb:/data/db
+    #   - ./.db/mongodb_config:/data/configdb
     command: mongod

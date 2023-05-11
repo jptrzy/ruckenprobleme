@@ -3,9 +3,9 @@
  */
 
 export class FakePerson {
-    name: string = "";
-    age: number = 0;
-    PESEL?: number = undefined;
+  name: string = "";
+  age: number = 0;
+  PESEL?: number = undefined;
 }
 
-export interface IFakePerson extends FakePerson {};
+export interface IFakePerson extends FakePerson {}

@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import * as fs from "fs";
 import { productRouter } from "./Routers/ProductRouter";
 import { Logger } from "tslog";
+import * as ProductsController from "./Controllers/ProductsController";
 
 const logger = new Logger();
 const app: Express = express();
@@ -26,7 +27,13 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/products", productRouter);
 
-app.listen(port, async () => {
+var server = app.listen(port, async () => {
   logger.info(`Server is running at http://localhost:${port}`);
   logger.info(`Connecting to ${process.env.DB_CONN_STRING!}`);
 });
+
+// server.close((err) => {
+//   ProductsController.client.close();
+
+//   process.exit(err ? 1 : 0)
+// })
