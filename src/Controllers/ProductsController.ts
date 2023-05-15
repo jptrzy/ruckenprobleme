@@ -28,8 +28,6 @@ async function getDB(): Promise<Db> {
 
 export let ProductsController: Controller = withHandleError({
   list: async (req: Request, res: Response, next: NextFunction) => {
-    console.log("LIST");
-
     const query: Filter<Document> = {
       name: { $regex: req.query.q || "", $options: "i" },
     };
@@ -39,7 +37,7 @@ export let ProductsController: Controller = withHandleError({
       .find(query)
       .toArray();
 
-    res.send({ products: products });
+    res.status(200).send({ products: products });
   },
 
   findById: async (req: Request, res: Response, next: NextFunction) => {
@@ -50,7 +48,7 @@ export let ProductsController: Controller = withHandleError({
     if (!product)
       throw new Error(`Product by Id(req.params._id) was not found`);
 
-    res.send(product);
+    res.status(200).send(product);
   },
 
   insert: async (req: Request, res: Response, next: NextFunction) => {

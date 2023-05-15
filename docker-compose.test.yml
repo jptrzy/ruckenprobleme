@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  api:
+    container_name: ruckenprobleme-test-api
+    extends:
+      file: docker-compose.common.yml
+      service: api
+    environment:
+      - PORT=8080
+      - DB_CONN_STRING=mongodb://mongodb:27018
+    command: npm run test
+    depends_on:
+      - mongodb
+  mongodb:
+    container_name: ruckenprobleme-test-mongodb
+    expose:
+      - 27018
+    ports:
+      - 27018:27018
+    extends:
+      file: docker-compose.common.yml
+      service: mongodb
+    healthcheck:
+      test: ping -c 2 ruckenprobleme-test-api || kill 1
+      interval: 5s
+      retries: 1
+      start_period: 20s
+    command: mongod --port 27018 --quiet --logpath /dev/null
+    

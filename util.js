@@ -39,11 +39,11 @@ const { setTokenSourceMapRange } = require("typescript");
 // .then(console.log);
 
 // Update product
-fetch("http://localhost:8080/products/645b51dba233a29dd0f18b09", {
-  method: "put",
-})
-  .then((res) => res.text())
-  .then(console.log);
+// fetch("http://localhost:8080/products/645b51dba233a29dd0f18b09", {
+//   method: "put",
+// })
+//   .then((res) => res.text())
+//   .then(console.log);
 
 // _id?: ObjectId;
 // name: string = "";

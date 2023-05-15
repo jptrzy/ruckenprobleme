@@ -5,7 +5,7 @@ import { Logger } from "tslog";
 import * as ProductsController from "./Controllers/ProductsController";
 
 const logger = new Logger();
-const app: Express = express();
+export const app: Express = express();
 // const port = process.env.PORT;
 const port = process.env.PORT;
 
