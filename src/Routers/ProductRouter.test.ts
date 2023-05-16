@@ -57,7 +57,48 @@ describe("Products Router", () => {
             .toBeGreaterThan(0);
     });
 
-    it.todo('PUT /<id>')
+    it('PUT /<id>', async () => {
+        let res = await request(app)
+            .put('/products/645cd4c985318b80023666b5')
+            .send(
+                {
+                    "name": "Newer Bible"
+                }
+            )
+            .set('Accept', 'application/json')
+
+        expect(res.status).toBe(201);
+
+        res = await request(app)
+            .get('/products/645cd4c985318b80023666b5')
+            .set('Accept', 'application/json')
+
+        expect(res.status).toBe(200);
+        expect(res.body).toStrictEqual(
+            {
+                "_id": "645cd4c985318b80023666b5",
+                "name": "Newer Bible",
+                "description": "Collection of multiple books",
+                "price": 99,
+                "rating": 5,
+                "stock": 10
+            }
+        );
+    })
+
     it.todo('UPDATE /<id>')
-    it.todo('DELETE /<id>')
+    
+    it('DELETE /<id>', async () => {
+        let res = await request(app)
+            .del('/products/645cd4c985318b80023666b5')
+            .set('Accept', 'application/json')
+
+        expect(res.status).toBe(200);
+
+        res = await request(app)
+            .get('/products/645cd4c985318b80023666b5')
+            .set('Accept', 'application/json')
+
+        expect(res.status).toBe(404)
+    })
 });
