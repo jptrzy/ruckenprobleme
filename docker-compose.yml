@@ -10,7 +10,7 @@ services:
       - 8080:8080
     environment:
       - PORT=8080
-      - DB_CONN_STRING=mongodb://root:Randowm1123@mongodb:27017
+      - DB_CONN_STRING=mongodb://root:Randowm1123@mongodb:27020
     volumes:
       - .:/app
       - /app/node_modules
@@ -22,9 +22,9 @@ services:
     image: mongo:latest
     restart: always
     expose:
-      - 27017
+      - 27020
     ports:
-      - 27017:27017
+      - 27020:27020
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=Randowm1123
@@ -33,4 +33,4 @@ services:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     #   - ./.db/mongodb:/data/db
     #   - ./.db/mongodb_config:/data/configdb
-    command: mongod
+    command: mongod --port 27020

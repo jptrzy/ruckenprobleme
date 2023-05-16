@@ -109,6 +109,10 @@
     "plugins": [{ "transform": "ts-transformer-keys/transformer" }]
   },
 
+  "exclude": [
+    "**/*.test.ts"
+  ],
+
   "watchOptions": {
     "watchFile": "priorityPollingInterval"
   }
