@@ -1,5 +1,5 @@
 dev:
-	docker-compose up --build
+	docker-compose up --build -d
 test:
 	docker-compose -f ./docker-compose.test.yml build --no-cache mongodb
 	docker-compose -f ./docker-compose.test.yml build api

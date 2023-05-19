@@ -58,9 +58,9 @@ export let ProductsController: Controller = withHandleError({
     if (!isOfClass(Product, product))
       throw new Error(`User send incorrect data for product creation`);
 
-    (await getDB()).collection<Product>("products").insertOne(product);
+    const result = await (await getDB()).collection<Product>("products").insertOne(product);
 
-    res.status(201).send({ message: "Product successfully inserted" });
+    res.status(201).send({ message: `Product successfully inserted with id ${result.insertedId}` });
   },
 
   update: async (req: Request, res: Response, next: NextFunction) => {
